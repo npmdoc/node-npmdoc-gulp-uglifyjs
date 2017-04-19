@@ -1,9 +1,14 @@
-# api documentation for  [gulp-uglifyjs (v0.6.2)](https://github.com/craigjennings11/gulp-uglifyjs)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-uglifyjs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-uglifyjs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-uglifyjs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-uglifyjs)
+# npmdoc-gulp-uglifyjs
+
+#### api documentation for  [gulp-uglifyjs (v0.6.2)](https://github.com/craigjennings11/gulp-uglifyjs)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-uglifyjs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-uglifyjs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-uglifyjs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-uglifyjs)
+
 #### Minify multiple files with UglifyJS.
 
-[![NPM](https://nodei.co/npm/gulp-uglifyjs.png?downloads=true)](https://www.npmjs.com/package/gulp-uglifyjs)
+[![NPM](https://nodei.co/npm/gulp-uglifyjs.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-uglifyjs)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-gulp-uglifyjs_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-gulp-uglifyjs/build/screenCapture.npmPackageListing.svg)
 
@@ -17,8 +22,7 @@
 
 {
     "author": {
-        "name": "Craig Jennings",
-        "email": "craig.jennings@gmail.com"
+        "name": "Craig Jennings"
     },
     "bugs": {
         "url": "https://github.com/craigjennings11/gulp-uglifyjs/issues"
@@ -54,13 +58,11 @@
     "main": "index.js",
     "maintainers": [
         {
-            "name": "craigjennings11",
-            "email": "craig.jennings11@gmail.com"
+            "name": "craigjennings11"
         }
     ],
     "name": "gulp-uglifyjs",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/craigjennings11/gulp-uglifyjs.git"
@@ -71,16 +73,6 @@
     "version": "0.6.2"
 }
 ```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module gulp-uglifyjs](#apidoc.module.gulp-uglifyjs)
-
-
-
-# <a name="apidoc.module.gulp-uglifyjs"></a>[module gulp-uglifyjs](#apidoc.module.gulp-uglifyjs)
 
 
 
