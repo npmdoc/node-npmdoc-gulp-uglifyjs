@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/craigjennings11/gulp-uglifyjs"
-
-    >gulp-uglifyjs (v0.6.2)</a>
+    <a href="https://github.com/craigjennings11/gulp-uglifyjs">gulp-uglifyjs (v0.6.2)</a>
 </h1>
 <h4>Minify multiple files with UglifyJS.</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-uglifyjs">module gulp-uglifyjs</a><ol>
 
@@ -86,14 +79,14 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">gulp-uglifyjs = function (filename, options) {
-  &#x27;use strict&#x27;;
+  'use strict';
 
   var baseFile = null;
-  var basePath = &#x27;.&#x27;;
+  var basePath = '.';
   var sourcesContent = {};
   var toplevel = null;
 
-  if (typeof filename === &#x27;object&#x27;) {
+  if (typeof filename === 'object') {
     // options given, but no filename
     options = filename;
     filename = null;
@@ -115,20 +108,20 @@
 </span>    if (file.isNull()) return;
 
     if (file.isStream()) {
-      return this.emit(&#x27;error&#x27;, new PluginError(&#x27;gulp-uglifyjs&#x27;,  &#x27;Streaming not supported&#x27;));
+      return this.emit('error', new PluginError('gulp-uglifyjs',  'Streaming not supported'));
     }
 
     if (!baseFile) {
       baseFile = file;
 
-      // Set the filename if one wasn&#x27;t given
+      // Set the filename if one wasn't given
       if (!filename) {
         filename = baseFile.relative;
       }
 
       // Set the outSourceMap filename if one was requested
       if (options.outSourceMap === true) {
-        options.outSourceMap = filename + &#x27;.map&#x27;;
+        options.outSourceMap = filename + '.map';
       }
     }
 
@@ -142,19 +135,19 @@
         toplevel: toplevel
       });
     } catch(e) {
-      gutil.log(&#x27;gulp-uglifyjs - UglifyJS threw an error&#x27;);
-      gutil.log(gutil.colors.red(&#x27;file: &#x27;) + file.path + &#x27;:&#x27; + e.line + &#x27;,&#x27; + e.col);
-      gutil.log(gutil.colors.red(&#x27;error: &#x27;) + e.message);
+      gutil.log('gulp-uglifyjs - UglifyJS threw an error');
+      gutil.log(gutil.colors.red('file: ') + file.path + ':' + e.line + ',' + e.col);
+      gutil.log(gutil.colors.red('error: ') + e.message);
 
-      return this.emit(&#x27;error&#x27;, new PluginError(&#x27;gulp-uglifyjs&#x27;,  &#x27;Aborting due to previous errors&#x27;));
+      return this.emit('error', new PluginError('gulp-uglifyjs',  'Aborting due to previous errors'));
     }
   }
 
   function minify() {
     /* jshint validthis: true, camelcase: false */
     if(!toplevel) {
-      gutil.log(&#x27;gulp-uglifyjs - No files given; aborting minification&#x27;);
-      this.emit(&#x27;end&#x27;);
+      gutil.log('gulp-uglifyjs - No files given; aborting minification');
+      this.emit('end');
       return;
     }
 
@@ -167,7 +160,7 @@
 
       if (options.enclose !== true) {
         Object.keys(options.enclose).forEach(function(key) {
-          argParameterList.push(key + &#x27;:&#x27; + options.enclose[key]);
+          argParameterList.push(key + ':' + options.enclose[key]);
         });
       }
 
@@ -218,7 +211,7 @@
 
     if (options.outSourceMap) {
       // Manually add source map comment to uglified code
-      min += &#x27;\r\n//# sourceMappingURL=&#x27; + options.outSourceMap;
+      min += '\r\n//# sourceMappingURL=' + options.outSourceMap;
     }
 
     var compressedFile = new File({
@@ -244,3 +237,4 @@
     ]
 </div>
 </div>
+</body></html>

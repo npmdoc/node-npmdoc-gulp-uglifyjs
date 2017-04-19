@@ -61,12 +61,180 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-uglifyjs">module gulp-uglifyjs</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gulp-uglifyjs.gulp-uglifyjs">
+            function <span class="apidocSignatureSpan"></span>gulp-uglifyjs
+            <span class="apidocSignatureSpan">(filename, options)</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.gulp-uglifyjs" id="apidoc.module.gulp-uglifyjs">module gulp-uglifyjs</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gulp-uglifyjs.gulp-uglifyjs" id="apidoc.element.gulp-uglifyjs.gulp-uglifyjs">
+        function <span class="apidocSignatureSpan"></span>gulp-uglifyjs
+        <span class="apidocSignatureSpan">(filename, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gulp-uglifyjs = function (filename, options) {
+  &#x27;use strict&#x27;;
+
+  var baseFile = null;
+  var basePath = &#x27;.&#x27;;
+  var sourcesContent = {};
+  var toplevel = null;
+
+  if (typeof filename === &#x27;object&#x27;) {
+    // options given, but no filename
+    options = filename;
+    filename = null;
+  }
+
+  // Assign default values to options
+  options = options || {};
+  if (options.compress !== false) options.compress = options.compress || { warnings: false };
+  if (options.mangle !== false) options.mangle = options.mangle || {};
+  options.output = options.output || {};
+
+  // Needed to get the relative paths correct in the source map
+  if (options.basePath) {
+    basePath = process.cwd() + path.sep + options.basePath;
+  }
+
+  function bufferFiles(file) {
+<span class="apidocCodeCommentSpan">    /* jshint validthis: true */
+</span>    if (file.isNull()) return;
+
+    if (file.isStream()) {
+      return this.emit(&#x27;error&#x27;, new PluginError(&#x27;gulp-uglifyjs&#x27;,  &#x27;Streaming not supported&#x27;));
+    }
+
+    if (!baseFile) {
+      baseFile = file;
+
+      // Set the filename if one wasn&#x27;t given
+      if (!filename) {
+        filename = baseFile.relative;
+      }
+
+      // Set the outSourceMap filename if one was requested
+      if (options.outSourceMap === true) {
+        options.outSourceMap = filename + &#x27;.map&#x27;;
+      }
+    }
+
+    var code = file.contents.toString();
+
+    sourcesContent[file.path] = code;
+
+    try {
+      toplevel = UglifyJS.parse(code, {
+        filename: path.relative(basePath, file.path),
+        toplevel: toplevel
+      });
+    } catch(e) {
+      gutil.log(&#x27;gulp-uglifyjs - UglifyJS threw an error&#x27;);
+      gutil.log(gutil.colors.red(&#x27;file: &#x27;) + file.path + &#x27;:&#x27; + e.line + &#x27;,&#x27; + e.col);
+      gutil.log(gutil.colors.red(&#x27;error: &#x27;) + e.message);
+
+      return this.emit(&#x27;error&#x27;, new PluginError(&#x27;gulp-uglifyjs&#x27;,  &#x27;Aborting due to previous errors&#x27;));
+    }
+  }
+
+  function minify() {
+    /* jshint validthis: true, camelcase: false */
+    if(!toplevel) {
+      gutil.log(&#x27;gulp-uglifyjs - No files given; aborting minification&#x27;);
+      this.emit(&#x27;end&#x27;);
+      return;
+    }
+
+    if (options.wrap) {
+      toplevel = toplevel.wrap_commonjs(options.wrap, options.exportAll);
+    }
+
+    if (options.enclose) {
+      var argParameterList = [];
+
+      if (options.enclose !== true) {
+        Object.keys(options.enclose).forEach(function(key) {
+          argParameterList.push(key + &#x27;:&#x27; + options.enclose[key]);
+        });
+      }
+
+      toplevel = toplevel.wrap_enclose(argParameterList);
+    }
+
+    toplevel.figure_out_scope();
+
+    if (options.compress !== false) {
+      var compressor = UglifyJS.Compressor(options.compress);
+      toplevel = toplevel.transform(compressor);
+
+      toplevel.figure_out_scope();
+    }
+
+    if (options.mangle !== false) {
+      toplevel.compute_char_frequency();
+      toplevel.mangle_names(options.mangle);
+    }
+
+    // Setup source map if one was requested
+    if (options.outSourceMap) {
+      options.output.source_map = options.output.source_map || {
+        file: filename,
+        root: options.sourceRoot || baseFile.cwd,
+      };
+
+      if (options.inSourceMap) {
+        options.output.source_map.orig = fs.readFileSync(options.inSourceMap).toString();
+      }
+
+      var map = UglifyJS.SourceMap(options.output.source_map);
+      options.output.source_map = map;
+
+      if (options.sourceMapIncludeSources) {
+        for (var file in sourcesContent) {
+          if (sourcesContent.hasOwnProperty(file)) {
+            options.output.source_map.get().setSourceContent(file, sourcesContent[file]);
+          }
+        }
+      }
+    }
+
+    // Output the minified code
+    var stream = UglifyJS.OutputStream(options.output);
+    toplevel.print(stream);
+    var min = stream.get();
+
+    if (options.outSourceMap) {
+      // Manually add source map comment to uglified code
+      min += &#x27;\r\n//# sourceMappingURL=&#x27; + options.outSourceMap;
+    }
+
+    var compressedFile = new File({
+      cwd: baseFile.cwd,
+      base: baseFile.base,
+      path: path.join(baseFile.base, filename),
+      contents: new Buffer(min)
+    });
+
+    this.push(compressedFile);
+
+    if (options.outSourceMap) {
+      var sourceMap = new ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 </div>
 
